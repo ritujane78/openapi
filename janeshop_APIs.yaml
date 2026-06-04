@@ -105,7 +105,7 @@ paths:
                      minimum: 1
   /products/{productId}:
     get:
-      summary: A  specific product.
+      summary: A specific product.
       description: Returns the description of a product specified in the path variable, supported by JaneShop.
       parameters: 
         - name: productId
@@ -185,7 +185,7 @@ paths:
     put:
       summary: Update orders
       description: |
-        Update order details to JaneShop for processing and shipping.
+        Update order details from JaneShop for processing and shipping.
       requestBody: 
         content: 
           application/json: 
@@ -224,9 +224,9 @@ paths:
         '200':
           description: Order updated successfully.
     delete:
-      summary: Delete orders
+      summary: Delete order
       description: |
-        Delete order details to JaneShop
+        Delete order details from JaneShop
       parameters: 
         - name: orderId
           in: query
@@ -236,6 +236,48 @@ paths:
       responses:
         '204':
           description: Order details cancelled successfully.
-
-      
-
+    get:
+      summary: Get Order Details
+      description: Get order details from JaneShop
+      parameters:
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Fetch Order details successfully
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  orderId:
+                    type: integer
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productId:
+                          type: integer
+                        name:
+                         type: string
+                        price:
+                          type: number
+                        categoryName:
+                          type: string
+                        quantity:
+                          type: integer
+                  address:
+                    type: object
+                    properties:
+                      addressLine:
+                        type: string
+                      city:
+                        type: string
+                      state:
+                        type: string
+                      zipcode:
+                        type: string
