@@ -1,72 +1,97 @@
-openapi: 3.2.0
+openapi: 3.0.3
 info:
-  title: JaneShop Products API Definitions
-  summary: All the APIs of JaneShop products.
+  title: JaneShop Products APIs Definition
   description: |
-    # About Us
-    ***JaneShop*** is an open market product selling company. Any website can list our products by using our __APIs__ . Shipping and other logistics will be taken by us. You will get an `affiliate commision`for selling our products.
-    # Categories supported
-    - Mobiles
-       - Apple
-       - Samsung
-       - OnePlus 
-    - Laptops
-    - Television
-    - Headphones
-  termsOfService: www.janebank.com/terms/
-  contact: 
-    name: JaneBank API support
-    url: https://janebank.com/support/
-    email: ritujanre78@gmail.com
-  license: 
-    name: JaneBank license
-    url: https://janebank.com/licence/licemse-2.0.html
+      # About Us
+      **JaneShop** is a open market product selling company. Any website can list our products by  using our _APIs_. Shipping & other logistics will be taken care by us. You will get an `Affiliate commision` for selling our products.
+      # Categories suported
+        - Mobiles
+          - Apple
+          - Samsung
+          - OnePlus
+        - Laptops
+        - Televisions
+        - Headphones
+  termsOfService: https:/janeshop.com/terms/
+  contact:
+    name: API Support
+    url: https://www.janeshop.com/support
+    email: support@janeshop.com
+  license:
+    name: JaneShop License
+    url: https://www.janeshop.com/licenses/LICENSE-2.0.html
   version: 0.0.1
-servers: 
- - url: https://development.server.com/v1
-   description: Development server
+servers:
+  - url: https://development.janeshop-server.com/v1
+    description: Development server
 tags:
   - name: Categories
     description: Categories-related operations
   - name: Products
     description: Products-related operations
   - name: Orders
-    description: Orders-related operation
-paths: 
+    description: Orders-related operations
+paths:
   /categories:
     get:
       tags:
-      - Categories
-      summary: A list of categories.
-      description: Returns the list of categories supported by JaneShop.
-      parameters: 
+        - Categories
+      summary: List all catgories
+      description: Returns the list of categories supported by JaneShop
+      parameters:
         - name: categoryId
           in: query
-          schema: 
+          schema:
             type: integer
             minimum: 100
             maximum: 1000
-          example: 101
+          examples:
+            mobiles:
+              summary: Use this example for mobiles
+              value: 101
+            laptops:
+              value: 102
+            headphones:
+              value: 103
+            televisions:
+              value: 104
       responses:
-        "200":
-          description: A list of categories.
+        '200':
+          description: A list of categories
           content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
                   type: object
-                  properties: 
-                    categoryId: 
+                  properties:
+                    categoryId:
                       type: integer
                     name:
-                    type: string
+                      type: string
+              examples:
+                all-categories-data:
+                  summary: Categories example data
+                  value:
+                    - categoryId: 101
+                      name: Mobiles
+                    - categoryId: 102
+                      name: Laptops
+                    - categoryId: 103
+                      name: Headphones
+                    - categoryId: 104
+                      name: Televisions
+                single-category-data:
+                  summary: Single category example data
+                  value:
+                    - categoryId: 101
+                      name: Mobiles
   /categories/{categoryId}:
     get:
       tags:
-      - Categories
-      summary: A specific category
-      description: Returns a category with the mentioned category type.
+        - Categories
+      summary: Return category details
+      description: Returns the category details from JaneShop
       parameters:
         - name: categoryId
           in: path
@@ -76,14 +101,14 @@ paths:
             minimum: 100
             maximum: 1000
           example: 102
-      responses: 
-        "200":
-          description: A specific category
+      responses:
+        '200':
+          description: Return category details
           content:
-            application/json: 
+            application/json:
               schema:
                 type: object
-                properties: 
+                properties:
                   categoryId:
                     type: integer
                   name:
@@ -91,82 +116,106 @@ paths:
   /products:
     get:
       tags:
-      - Products
-      summary: A list of products.
-      description: Returns the list of products supported by JaneShop.
-      parameters: 
+        - Products
+      summary: List all products
+      description: |
+        Returns the list of products supported by JaneShop
+      parameters:
         - name: categoryId
           in: query
-          schema: 
+          schema:
             type: integer
-            minimum: 10
-            maximum: 100
-          example: 11
+            minimum: 100
+            maximum: 1000
+          example: 101
       responses:
-        "200":
-          description: A list of products.
+        '200':
+          description: A list of products
           content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
                   type: object
-                  properties: 
-                    productId: 
+                  properties:
+                    productId:
                       type: integer
                     name:
-                      type: string   
+                      type: string
                     price:
                       type: number
                     categoryName:
                       type: string
                     quantity:
-                     type: integer
-                     minimum: 1
+                      type: integer
+                      description: |
+                          ***Quantity*** represents `stock` value when this field is being sent by JaneShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
+              examples:
+                products-data:
+                  summary: Products example data
+                  value:
+                    - productId: 101
+                      name: Apple IPhone 13 Pro
+                      price: 999.00
+                      categoryName: Mobiles
+                      quantity: 96
+                    - productId: 102
+                      name: Samsung S22 Ultra
+                      price: 899.00
+                      categoryName: Mobiles
+                      quantity: 121
+                    - productId: 103
+                      name: OnePlus 10 Pro 5G
+                      price: 750.00
+                      categoryName: Mobiles
+                      quantity: 67
   /products/{productId}:
     get:
       tags:
-      - Products
-      summary: A  specific product.
-      description: Returns the description of a product specified in the path variable, supported by JaneShop.
-      parameters: 
+        - Products
+      summary: Return product details
+      description: |
+        Returns the product details from  JaneShop
+      parameters:
         - name: productId
           in: path
           required: true
-          schema: 
+          schema:
             type: integer
-            minimum: 10
-            maximum: 100
-          example: 11
+            minimum: 100
+            maximum: 1000
+          example: 101
       responses:
-        "200":
-          description: A specific product.
+        '200':
+          description: Return product details
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
-                properties: 
-                  productId: 
+                properties:
+                  productId:
                     type: integer
                   name:
-                    type: string   
+                    type: string
                   price:
                     type: number
                   categoryName:
                     type: string
                   quantity:
                     type: integer
-                    minimum: 1
+                    description: |
+                          ***Quantity*** represents `stock` value when this field is being sent by JaneShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
   /orders:
     post:
       tags:
-      - Orders
-      summary: Create orders
+        - Orders
+      summary: Create Order
       description: |
-        Post order details to JaneShop for processing and shipping.
-      requestBody: 
-        content: 
-          application/json: 
+        Post order details to JaneShop for processing
+        and shipping
+      requestBody:
+        content:
+          application/json:
             schema:
               type: object
               properties:
@@ -178,7 +227,7 @@ paths:
                       productId:
                         type: integer
                       name:
-                        type: string
+                       type: string
                       price:
                         type: number
                       categoryName:
@@ -186,7 +235,7 @@ paths:
                       quantity:
                         type: integer
                         description: |
-                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
+                          ***Quantity*** represents `stock` value when this field is being sent by JaneShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
                 address:
                   type: object
                   properties:
@@ -196,12 +245,12 @@ paths:
                       type: string
                     state:
                       type: string
-                    zipCode:
+                    zipcode:
                       type: string
       responses:
         '201':
-          description: Order created successfully.
-          content:  
+          description: Order created successfully
+          content:
             application/json:
               schema:
                 type: object
@@ -210,13 +259,14 @@ paths:
                     type: integer
     put:
       tags:
-      - Orders
-      summary: Update orders
+        - Orders
+      summary: Update Order
       description: |
-        Update order details from JaneShop for processing and shipping.
-      requestBody: 
-        content: 
-          application/json: 
+        Update order details to JaneShop for processing
+        and shipping
+      requestBody:
+        content:
+          application/json:
             schema:
               type: object
               properties:
@@ -230,7 +280,7 @@ paths:
                       productId:
                         type: integer
                       name:
-                        type: string
+                       type: string
                       price:
                         type: number
                       categoryName:
@@ -238,7 +288,7 @@ paths:
                       quantity:
                         type: integer
                         description: |
-                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
+                          ***Quantity*** represents `stock` value when this field is being sent by JaneShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
                 address:
                   type: object
                   properties:
@@ -248,18 +298,17 @@ paths:
                       type: string
                     state:
                       type: string
-                    zipCode:
+                    zipcode:
                       type: string
       responses:
         '200':
-          description: Order details updated successfully.
+          description: Order details updated successfully
     delete:
       tags:
-      - Orders
-      summary: Delete orders
-      description: |
-        Delete order details from JaneShop
-      parameters: 
+        - Orders
+      summary: Delete Order
+      description: Delete order details from JaneShop
+      parameters:
         - name: orderId
           in: query
           required: true
@@ -267,10 +316,10 @@ paths:
             type: integer
       responses:
         '204':
-          description: Order details cancelled successfully.
+          description: Order details cancelled successfully
     get:
       tags:
-      - Orders
+        - Orders
       summary: Get Order Details
       description: Get order details from JaneShop
       parameters:
@@ -304,8 +353,6 @@ paths:
                           type: string
                         quantity:
                           type: integer
-                          description: |
-                            ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
                   address:
                     type: object
                     properties:
