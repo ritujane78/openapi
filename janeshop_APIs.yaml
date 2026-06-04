@@ -4,7 +4,7 @@ info:
   summary: All the APIs of JaneShop products.
   description: |
     # About Us
-    ***JaneBank*** is an open market product selling company. Any website can list our products by using our __APIs__ . Shipping and other logistics will be taken by us. You will get an `affiliate commision`for selling our products.
+    ***JaneShop*** is an open market product selling company. Any website can list our products by using our __APIs__ . Shipping and other logistics will be taken by us. You will get an `affiliate commision`for selling our products.
     # Categories supported
     - Mobiles
        - Apple
@@ -25,11 +25,18 @@ info:
 servers: 
  - url: https://development.server.com/v1
    description: Development server
-
-  
+tags:
+  - name: Categories
+    description: Categories-related operations
+  - name: Products
+    description: Products-related operations
+  - name: Orders
+    description: Orders-related operation
 paths: 
   /categories:
     get:
+      tags:
+      - Categories
       summary: A list of categories.
       description: Returns the list of categories supported by JaneShop.
       parameters: 
@@ -53,9 +60,11 @@ paths:
                     categoryId: 
                       type: integer
                     name:
-                      type: string
+                    type: string
   /categories/{categoryId}:
     get:
+      tags:
+      - Categories
       summary: A specific category
       description: Returns a category with the mentioned category type.
       parameters:
@@ -81,6 +90,8 @@ paths:
                     type: string
   /products:
     get:
+      tags:
+      - Products
       summary: A list of products.
       description: Returns the list of products supported by JaneShop.
       parameters: 
@@ -112,11 +123,11 @@ paths:
                     quantity:
                      type: integer
                      minimum: 1
-                     description: |
-                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
   /products/{productId}:
     get:
-      summary: A specific product.
+      tags:
+      - Products
+      summary: A  specific product.
       description: Returns the description of a product specified in the path variable, supported by JaneShop.
       parameters: 
         - name: productId
@@ -146,10 +157,10 @@ paths:
                   quantity:
                     type: integer
                     minimum: 1
-                    description: |
-                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
   /orders:
     post:
+      tags:
+      - Orders
       summary: Create orders
       description: |
         Post order details to JaneShop for processing and shipping.
@@ -198,6 +209,8 @@ paths:
                   orderId:
                     type: integer
     put:
+      tags:
+      - Orders
       summary: Update orders
       description: |
         Update order details from JaneShop for processing and shipping.
@@ -239,9 +252,11 @@ paths:
                       type: string
       responses:
         '200':
-          description: Order updated successfully.
+          description: Order details updated successfully.
     delete:
-      summary: Delete order
+      tags:
+      - Orders
+      summary: Delete orders
       description: |
         Delete order details from JaneShop
       parameters: 
@@ -254,6 +269,8 @@ paths:
         '204':
           description: Order details cancelled successfully.
     get:
+      tags:
+      - Orders
       summary: Get Order Details
       description: Get order details from JaneShop
       parameters:
