@@ -1,0 +1,52 @@
+openapi: 3.2.0
+info:
+  title: JaneShop Products API Definitions
+  summary: All the APIs of JaneShop products.
+  description: |
+    Using this API specification, any consumer can understand the APIs exposed by JaneShop.
+  termsOfService: www.janebank.com/terms/
+  contact: 
+    name: JaneBank API support
+    url: https://janebank.com/support/
+    email: ritujanre78@gmail.com
+  license: 
+    name: JaneBank license
+    url: https://janebank.com/licence/licemse-2.0.html
+  version: 0.0.1
+servers: 
+ - url: https://development.server.com/v1
+   description: Development server
+
+  
+paths: 
+  /categories:
+    get:
+      summary: A list of categories.
+      description: Returns the list of categories supported by JaneShop.
+      parameters: 
+        - name: categoryId
+          in: query
+          schema: 
+            type: integer
+            minimum: 10
+            maximum: 100
+          example: 101
+      responses:
+        "200":
+          description: A list of categories.
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  type: object
+                  properties: 
+                    categoryId: 
+                      type: integer
+                    name:
+                      type: string
+  
+                
+
+      
+
