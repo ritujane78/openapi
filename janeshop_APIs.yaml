@@ -3,7 +3,16 @@ info:
   title: JaneShop Products API Definitions
   summary: All the APIs of JaneShop products.
   description: |
-    Using this API specification, any consumer can understand the APIs exposed by JaneShop.
+    # About Us
+    ***JaneBank*** is an open market product selling company. Any website can list our products by using our __APIs__ . Shipping and other logistics will be taken by us. You will get an `affiliate commision`for selling our products.
+    # Categories supported
+    - Mobiles
+       - Apple
+       - Samsung
+       - OnePlus 
+    - Laptops
+    - Television
+    - Headphones
   termsOfService: www.janebank.com/terms/
   contact: 
     name: JaneBank API support
@@ -103,6 +112,8 @@ paths:
                     quantity:
                      type: integer
                      minimum: 1
+                     description: |
+                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
   /products/{productId}:
     get:
       summary: A specific product.
@@ -135,6 +146,8 @@ paths:
                   quantity:
                     type: integer
                     minimum: 1
+                    description: |
+                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
   /orders:
     post:
       summary: Create orders
@@ -161,6 +174,8 @@ paths:
                         type: string
                       quantity:
                         type: integer
+                        description: |
+                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
                 address:
                   type: object
                   properties:
@@ -209,6 +224,8 @@ paths:
                         type: string
                       quantity:
                         type: integer
+                        description: |
+                          ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
                 address:
                   type: object
                   properties:
@@ -270,6 +287,8 @@ paths:
                           type: string
                         quantity:
                           type: integer
+                          description: |
+                            ***Quantity*** represents `stock` value when this field is being sent by EazyShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
                   address:
                     type: object
                     properties:
