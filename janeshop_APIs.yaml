@@ -223,6 +223,19 @@ paths:
       responses:
         '200':
           description: Order updated successfully.
+    delete:
+      summary: Delete orders
+      description: |
+        Delete order details to JaneShop
+      parameters: 
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Order details cancelled successfully.
 
       
 
