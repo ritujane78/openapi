@@ -1,1 +1,1 @@
-# OpenAPI Spcifications (in progress)
+# OpenAPI Specifications (in progress)
