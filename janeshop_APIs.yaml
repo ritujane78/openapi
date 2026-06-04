@@ -45,7 +45,32 @@ paths:
                       type: integer
                     name:
                       type: string
-  
+  /categories/{categoryId}:
+    get:
+      summary: A specific category
+      description: Returns a category with the mentioned category type.
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 100
+            maximum: 1000
+          example: 102
+      responses: 
+        "200":
+          description: A specific category
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties: 
+                  categoryId:
+                    type: integer
+                  name:
+                    type: string
+
                 
 
       
