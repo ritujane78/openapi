@@ -107,6 +107,7 @@ paths:
                 $ref: "#/components/schemas/Category"
         "500":
           $ref: "#/components/responses/InternalServerError"
+        
   /products:
     get:
       tags:
@@ -292,6 +293,38 @@ paths:
               required:
                 - products
                 - address
+      responses:
+        '200':
+          description: Order placed successfully
+  /anyOfOrder:
+    get:
+      tags:
+      - Orders
+      summary: Get Order Details
+      description: Get Order Details based on Order ID
+      parameters:
+        - $ref: "#/components/parameters/orderIdQueryParam"
+        - name: fetchType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - summary
+              - details
+          description: >
+            Fetch Type:
+             * `summary` - Will provide Order Summary
+             * `details` - Will provide Order Summary & Order Address
+      responses:
+        '200':
+          description: Return product details
+          content:
+            application/json:
+              schema:
+               anyOf:
+                - $ref: '#/components/schemas/OrderSummary'
+                - $ref: '#/components/schemas/OrderAddress'      
 components:
   parameters:
     orderIdQueryParam:
@@ -371,6 +404,18 @@ components:
                 - 32 GB
           required: 
             - ram
+    OrderSummary:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    OrderAddress:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
   responses:
     InternalServerError:
       description: |
