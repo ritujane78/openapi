@@ -137,7 +137,7 @@ paths:
                   value:
                     - productId: 101
                       name: Apple IPhone 13 Pro
-                      price: 999.00
+                      price: 999.88
                       categoryName: Mobiles
                       quantity: 96
                     - productId: 102
@@ -288,8 +288,15 @@ components:
           type: string
         state:
           type: string
+          enum:
+            - Alabama
+            - Mississippi
+            - California
+            - NewYork
         zipcode:
           type: string
+        isOfficeAddress:
+          type: boolean
       required: [addressLine, city, state, zipcode]
     Product:
       type: object
@@ -298,14 +305,19 @@ components:
           type: integer
         name:
          type: string
+         nullable: false
         price:
           type: number
+          format: float
         categoryName:
           type: string
         quantity:
           type: integer
           description: |
             ***Quantity*** represents `stock` value when this field is being sent by JaneShop.Where as in the scenarios of consumer sending this feild, it represents `number of product items` inside the order. Consumers are expected to handle the scenario of stopping the end user <u>*when the stock value is 0*</u>
+        releaseDate:
+          type: string
+          format: date-time
     Category:
       type: object
       properties:
@@ -317,4 +329,4 @@ components:
     InternalServerError:
       description: |
         An error occured while processing the request.
-        Please contact support@janeshop.com
+        Please contact support@janeshop.com for more details.
