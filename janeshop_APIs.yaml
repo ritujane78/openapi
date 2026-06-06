@@ -38,6 +38,7 @@ paths:
         - Categories
       summary: List all catgories
       description: Returns the list of categories supported by JaneShop
+      operationId: getCategories
       parameters:
         - name: categoryId
           in: query
@@ -89,6 +90,7 @@ paths:
         - Categories
       summary: Return category details
       description: Returns the category details from JaneShop
+      operationId: getCategoryDetails
       parameters:
         - name: categoryId
           in: path
@@ -115,6 +117,7 @@ paths:
       summary: List all products
       description: |
         Returns the list of products supported by JaneShop
+      operationId: getProducts
       parameters:
         - name: categoryId
           in: query
@@ -160,6 +163,7 @@ paths:
       summary: Return product details
       description: |
         Returns the product details from  JaneShop
+      operationId: getProductDetails
       parameters:
         - name: productId
           in: path
@@ -186,6 +190,7 @@ paths:
       description: |
         Post order details to JaneShop for processing
         and shipping
+      operationId: saveOrderDetails
       requestBody:
         content:
           application/json:
@@ -217,6 +222,7 @@ paths:
       description: |
         Update order details to JaneShop for processing
         and shipping
+      operationId: updateOrderDetails
       requestBody:
         content:
           application/json:
@@ -239,6 +245,7 @@ paths:
         - Orders
       summary: Delete Order
       description: Delete order details from JaneShop
+      operationId: deleteOrderDetails
       parameters:
         - $ref: "#/components/parameters/orderIdQueryParam"
       responses:
@@ -251,6 +258,7 @@ paths:
         - Orders
       summary: Get Order Details
       description: Get order details from JaneShop
+      operationId: getOrderDetails
       parameters:
         - $ref: "#/components/parameters/orderIdQueryParam"
       responses:
@@ -277,6 +285,7 @@ paths:
       - Orders
       summary: Insert OneOf the Order Details
       description: Insert OneOf the Order Details into Eazyshop
+      operationId: demoOfOneOf
       requestBody:
         content:
           application/json:
@@ -302,6 +311,7 @@ paths:
       - Orders
       summary: Get Order Details
       description: Get Order Details based on Order ID
+      operationId: demoOfAnyOf
       parameters:
         - $ref: "#/components/parameters/orderIdQueryParam"
         - name: fetchType
