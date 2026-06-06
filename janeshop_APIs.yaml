@@ -213,6 +213,9 @@ paths:
                 properties:
                   orderId:
                     type: integer
+          links:
+            GetOrderByOrderId:
+              $ref: '#/components/links/GetOrderByOrderId'  
         '500':
           $ref: "#/components/responses/InternalServerError"
     put:
@@ -465,3 +468,10 @@ components:
       description: |
         An error occured while processing the request.
         Please contact support@janeshop.com for more details.
+  links:
+    GetOrderByOrderId:
+      description: >
+        The `orderId` value returned in the response can be used as input parameter in `GET /orders`.
+      operationId: getProductDetails
+      parameters:
+        orderId: '$response.body#/orderId'
