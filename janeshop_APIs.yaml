@@ -12,7 +12,14 @@ info:
         - Laptops
         - Televisions
         - Headphones
-  termsOfService: https:/janeshop.com/terms/
+  x-custom-info:
+    comment: Some comments
+    developers:
+      - name: John Doe
+        email: john@doe.com
+      - name: Jane Doe
+        email: jane@doe.com
+  termsOfService: https://janeshop.com/terms/
   contact:
     name: API Support
     url: https://www.janeshop.com/support
@@ -21,6 +28,9 @@ info:
     name: JaneShop License
     url: https://www.janeshop.com/licenses/LICENSE-2.0.html
   version: 0.0.1
+externalDocs:
+  description: External Documentation
+  url: https://example.com/docs
 servers:
   - url: https://development.janeshop-server.com/v1
     description: Development server
@@ -192,6 +202,7 @@ paths:
         and shipping
       operationId: saveOrderDetails
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -227,6 +238,7 @@ paths:
         and shipping
       operationId: updateOrderDetails
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -472,6 +484,6 @@ components:
     GetOrderByOrderId:
       description: >
         The `orderId` value returned in the response can be used as input parameter in `GET /orders`.
-      operationId: getProductDetails
+      operationId: getOrderDetails
       parameters:
         orderId: '$response.body#/orderId'
