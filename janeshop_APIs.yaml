@@ -41,6 +41,10 @@ tags:
     description: Products-related operations
   - name: Orders
     description: Orders-related operations
+security:
+  - BasicAuth: []
+  - BearerAuth: []
+  - ApiKeyAuth: []
 paths:
   /categories:
     get:
@@ -487,3 +491,15 @@ components:
       operationId: getOrderDetails
       parameters:
         orderId: '$response.body#/orderId'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:        
+      type: apiKey
+      in: header
+      name: X-API-KEY
