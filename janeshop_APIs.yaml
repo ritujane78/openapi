@@ -57,6 +57,8 @@ paths:
       summary: List all catgories
       description: Returns the list of categories supported by JaneShop
       operationId: getCategories
+      security: 
+        - BasicAuth: []
       parameters:
         - name: categoryId
           in: query
@@ -109,6 +111,7 @@ paths:
       summary: Return category details
       description: Returns the category details from JaneShop
       operationId: getCategoryDetails
+      security: []
       parameters:
         - name: categoryId
           in: path
